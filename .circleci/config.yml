@@ -1,0 +1,25 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run: echo "Tests passed"
+
+  deploy:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run: echo "Deploying"
+
+workflows:
+  itsm-demo:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
+          type: approval  # Hold job
